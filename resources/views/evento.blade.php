@@ -1,121 +1,45 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ $evento->nombre }}</title>
+@extends('layouts.app')
 
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            background:#f5f2ef;
-            margin:0;
-            padding:40px;
-            color:#2c2c2c;
-        }
+@section('title', $evento->nombre)
 
-        .contenedor{
-            max-width:900px;
-            margin:auto;
-            background:white;
-            padding:40px;
-            border-radius:20px;
-            box-shadow:0 4px 12px rgba(0,0,0,0.08);
-        }
+@section('content')
 
-        h1{
-            color:#5e1541;
-            font-size:42px;
-            margin-bottom:20px;
-        }
+<main class="evento-page">
 
-        .dato{
-            font-size:20px;
-            margin:10px 0;
-        }
+    <section class="evento-detalle">
 
-        .descripcion{
-            margin-top:30px;
-            font-size:20px;
-            line-height:1.7;
-        }
+        <h1>Evento {{ $evento->nombre }}</h1>
 
-        .boton{
-            display:inline-block;
-            margin-top:30px;
-            background:#5e1541;
-            color:white;
-            padding:16px 24px;
-            border-radius:12px;
-            text-decoration:none;
-            font-weight:bold;
-            font-size:20px;
-        }
-
-        .boton:hover{
-            background:#7a2358;
-        }
-
-        .evento-finalizado{
-            margin-top:30px;
-            background:#f5f2ef;
-            padding:18px;
-            border-radius:12px;
-            font-size:18px;
-            color:#5e1541;
-            font-weight:bold;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="contenedor">
-
-    <h1>{{ $evento->nombre }}</h1>
-
-    <p class="dato">
-        <strong>Fecha:</strong>
-        {{ $evento->fecha }}
-    </p>
-
-    <p class="dato">
-        <strong>Hora:</strong>
-        {{ $evento->hora }}
-    </p>
-
-    <p class="dato">
-        <strong>Lugar:</strong>
-        {{ $evento->lugar }}
-    </p>
-
-    <p class="dato">
-        <strong>Tipo:</strong>
-        {{ $evento->tipo_actividad }}
-    </p>
-
-    <div class="descripcion">
-        {{ $evento->descripcion }}
-    </div>
-
-    @if($evento->fecha >= date('Y-m-d'))
-
-        <a href="{{ $evento->google_sheet_url }}"
-   target="_blank"
-   class="boton">
-
-    Me interesa
-
-</a>
-
-    @else
-
-        <p class="evento-finalizado">
-            Este evento ya fue realizado y se mantiene disponible como historial.
+        <p class="evento-dato">
+            <strong>Fecha/hora:</strong>
+            {{ \Carbon\Carbon::parse($evento->fecha)->format('d/m/Y') }}
+            {{ $evento->hora }}
         </p>
 
-    @endif
+        <p class="evento-dato">
+            <strong>Lugar:</strong> {{ $evento->lugar }}
+        </p>
 
-</div>
+        <p class="evento-dato">
+            <strong>Tipo:</strong> {{ $evento->tipo_actividad }}
+        </p>
 
-</body>
-</html>
+        <p class="evento-descripcion">
+            {{ $evento->descripcion }}
+        </p>
+
+        @if($evento->fecha >= date('Y-m-d'))
+            <a href="{{ $evento->google_sheet_url }}" target="_blank" class="event-button">
+                ¡Me interesa!
+            </a>
+        @else
+            <p class="evento-finalizado">
+                Este evento ya fue realizado y se mantiene disponible como historial.
+            </p>
+        @endif
+
+    </section>
+
+</main>
+
+@endsection

@@ -2,12 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventoController;
-use App\Http\Controllers\InscripcionController;
 
-Route::get('/', [EventoController::class, 'index']);
+Route::get('/', [EventoController::class, 'index'])->name('agenda');
 
-Route::get('/evento/{id}', [EventoController::class, 'show']);
+Route::get('/agenda', [EventoController::class, 'index'])->name('agenda.index');
 
-Route::get('/evento/{id}/inscripcion', [InscripcionController::class, 'create']);
-
-Route::post('/evento/{id}/inscripcion', [InscripcionController::class, 'store']);
+Route::get('/evento/{id}', [EventoController::class, 'show'])->name('evento.show');

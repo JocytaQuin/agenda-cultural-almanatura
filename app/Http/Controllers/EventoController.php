@@ -19,10 +19,7 @@ class EventoController extends Controller
             ->orderBy('fecha', 'desc')
             ->get();
 
-        return view('agenda', compact(
-            'eventosActivos',
-            'eventosPasados'
-        ));
+        return view('agenda', compact('eventosActivos', 'eventosPasados'));
     }
 
     public function show($id)

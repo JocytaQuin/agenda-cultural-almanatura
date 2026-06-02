@@ -1,11 +1,400 @@
-@import 'tailwindcss';
+:root {
+    --fondo: #a8a198;
+    --principal: #6b0f45;
+    --blanco: #ffffff;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+* {
+    box-sizing: border-box;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+body {
+    margin: 0;
+    background-color: var(--fondo);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* HEADER */
+
+.site-header {
+    display: grid;
+    grid-template-columns: 220px 1fr auto;
+    align-items: center;
+    height: 95px;
+    padding: 0 70px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--fondo);
+    transition: all 0.3s ease;
+}
+
+.site-header.scrolled {
+    height: 80px;
+    background-color: var(--principal);
+}
+
+.site-header.scrolled .site-nav a {
+    color: white;
+    font-weight: 600;
+}
+
+/* LOGOS */
+
+.site-logo {
+    position: relative;
+    display: block;
+    width: 230px;
+    height: 60px;
+    justify-self: start;
+}
+
+.site-logo img {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 45px;
+    width: auto;
+    transform: translateY(-50%);
+}
+
+.logo-normal {
+    display: block;
+    mix-blend-mode: multiply;
+}
+
+.logo-scroll {
+    display: none;
+}
+
+.site-header.scrolled .logo-normal {
+    display: none;
+}
+
+.site-header.scrolled .logo-scroll {
+    display: block;
+}
+
+/* MENÚ */
+
+.site-nav {
+    grid-column: 3;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    justify-self: end;
+}
+
+.site-nav a {
+    text-decoration: none;
+    color: rgba(94, 21, 65, 0.75);
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.site-nav a.active {
+    font-weight: 900;
+    color: var(--principal);
+}
+
+.site-header.scrolled .site-nav a.active {
+    color: white;
+}
+
+.menu-mobile {
+    display: none;
+}
+
+/* LÍNEA */
+
+.header-line {
+    width: 99%;
+    height: 2px;
+    background-color: rgba(107, 15, 69, 0.30);
+    margin: 0 auto 25px;
+    position: sticky;
+    top: 95px;
+    z-index: 999;
+    transition: opacity 0.3s ease;
+}
+
+.site-header.scrolled + .header-line {
+    opacity: 0;
+}
+
+/* AGENDA */
+
+.agenda-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+}
+
+.agenda-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.agenda-title h1 {
+    margin: 0 0 18px;
+    color: var(--principal);
+    font-size: 62px;
+    font-weight: 900;
+}
+
+.agenda-title h2 {
+    margin: 0;
+    color: var(--principal);
+    font-size: 28px;
+    font-weight: 900;
+}
+
+/* EVENTOS PASADOS */
+
+.past-events {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto 25px;
+}
+
+.past-slider {
+    width: 720px;
+    height: 360px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.past-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.past-slide.active {
+    opacity: 1;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(107, 15, 69, 0.65);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.slider-arrow:hover {
+    background-color: var(--principal);
+    transform: translateY(-50%) scale(1.1);
+}
+
+#prevSlide {
+    left: 15px;
+}
+
+#nextSlide {
+    right: 15px;
+}
+
+/* BUSCADOR */
+
+.search-section {
+    display: flex;
+    justify-content: center;
+    margin: 28px 0;
+}
+
+.search-box {
+    width: 72%;
+    height: 42px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+}
+
+.search-icon {
+    font-size: 20px;
+}
+
+/* PRÓXIMOS EVENTOS */
+
+.upcoming-events {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.upcoming-events h2 {
+    color: var(--principal);
+    font-size: 28px;
+    margin-bottom: 28px;
+}
+
+.events-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.event-card {
+    width: 260px;
+    text-align: center;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 155px;
+    background-color: var(--principal);
+    border-radius: 24px 24px 0 0;
+}
+
+.event-card-info {
+    background-color: var(--principal);
+    color: var(--blanco);
+    padding: 16px 12px;
+    border-radius: 0 0 24px 24px;
+}
+
+.event-card-info h3 {
+    margin: 0 0 10px;
+    font-size: 17px;
+}
+
+.event-card-info p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.event-button {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 12px 24px;
+    background-color: var(--principal);
+    color: var(--blanco);
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: auto;
+        padding: 18px 20px;
+    }
+
+    .site-logo {
+        width: 180px;
+        height: 55px;
+    }
+
+    .site-logo img {
+        height: 45px;
+    }
+
+    .site-nav {
+        display: none;
+    }
+
+    .site-nav.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 75px;
+        right: 20px;
+        background-color: var(--principal);
+        padding: 18px;
+        border-radius: 16px;
+        gap: 14px;
+        z-index: 2000;
+    }
+
+    .site-nav.active a {
+        color: white;
+    }
+
+    .menu-mobile {
+        display: block;
+        background: none;
+        border: none;
+        color: var(--principal);
+        font-size: 30px;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+    }
+
+    .site-header.scrolled .menu-mobile {
+        color: white;
+    }
+
+    .header-line {
+        margin: 0 auto 30px;
+    }
+
+    .agenda-title h1 {
+        font-size: 36px;
+    }
+
+    .past-events {
+        margin: 20px auto 25px;
+    }
+
+    .past-slider {
+        width: 100%;
+        height: 250px;
+    }
+
+    .slider-arrow {
+        width: 42px;
+        height: 42px;
+        font-size: 22px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .events-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .event-card {
+        width: 100%;
+    }
 }
