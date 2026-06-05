@@ -8,12 +8,16 @@
 
     <section class="evento-detalle">
 
-        <h1>Evento {{ $evento->nombre }}</h1>
+        <img src="{{ asset('img/eventos-proximos/' . $evento->imagen) }}"
+             class="event-detail-img"
+             alt="{{ $evento->nombre }}">
+
+        <h1>{{ $evento->nombre }}</h1>
 
         <p class="evento-dato">
             <strong>Fecha/hora:</strong>
             {{ \Carbon\Carbon::parse($evento->fecha)->format('d/m/Y') }}
-            {{ $evento->hora }}
+            {{ \Carbon\Carbon::parse($evento->hora)->format('H:i') }}
         </p>
 
         <p class="evento-dato">
