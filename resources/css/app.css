@@ -288,6 +288,16 @@ body {
     font-size: 20px;
     color: var(--principal);
 }
+/* MENSAJE SIN RESULTADOS */
+
+.no-results {
+    width: 100%;
+    text-align: center;
+    color: var(--principal);
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
 
 /* PRÓXIMOS EVENTOS */
 

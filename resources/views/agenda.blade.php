@@ -42,6 +42,9 @@
         <h2>Próximos eventos</h2>
 
         <div class="events-grid">
+            <p id="noResults" class="no-results" style="display: none;">
+    No se encontraron eventos.
+</p>
             @forelse ($eventosActivos as $evento)
                 <article class="event-card" data-nombre="{{ strtolower($evento->nombre) }}">
 

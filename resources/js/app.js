@@ -87,6 +87,7 @@ if (slides.length > 0 && prevSlide && nextSlide) {
 
 const searchEvent = document.getElementById('searchEvent');
 const eventCards = document.querySelectorAll('.event-card');
+const noResults = document.getElementById('noResults');
 
 if (searchEvent && eventCards.length > 0) {
 
@@ -94,17 +95,25 @@ if (searchEvent && eventCards.length > 0) {
 
         const searchText = this.value.toLowerCase().trim();
 
+        let visibleCards = 0;
+
         eventCards.forEach(card => {
 
             const eventName = card.dataset.nombre;
 
             if (eventName.includes(searchText)) {
                 card.style.display = '';
+                visibleCards++;
             } else {
                 card.style.display = 'none';
             }
 
         });
+
+        if (noResults) {
+            noResults.style.display =
+                visibleCards === 0 ? 'block' : 'none';
+        }
 
     });
 
