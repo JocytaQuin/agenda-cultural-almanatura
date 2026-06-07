@@ -15,6 +15,7 @@
         <div class="evento-info">
 
             <h1>
+
                 @if($evento->tipo_actividad == 'Circo')
                     🎪
                 @elseif($evento->tipo_actividad == 'Taller')
@@ -26,6 +27,7 @@
                 @endif
 
                 {{ $evento->nombre }}
+
             </h1>
 
             <div class="evento-datos">
@@ -41,24 +43,24 @@
                 </p>
 
                 <p class="evento-dato">
-    <strong>📍 Lugar:</strong><br>
 
-    <a href="https://maps.google.com/?q=Fundación+AlmaNatura,+C.+Huelva,+21280+Arroyomolinos+de+León,+Huelva,+España"
-       target="_blank"
-       class="evento-mapa">
+                    <strong>📍 Lugar:</strong><br>
 
-        Fundación AlmaNatura<br>
-        C. Huelva, 21280 Arroyomolinos de León, Huelva, España
+                    <a href="https://maps.google.com/?q=Fundación+AlmaNatura,+C.+Huelva,+21280+Arroyomolinos+de+León,+Huelva,+España"
+                       target="_blank"
+                       class="evento-mapa">
 
-    </a>
-</p>
+                        Fundación AlmaNatura<br>
+                        C. Huelva, 21280 Arroyomolinos de León, Huelva, España
 
-                @if(!empty($evento->cupos))
-                    <p class="evento-dato">
-                        <strong>👥 Cupos disponibles:</strong>
-                        {{ $evento->cupos }}
-                    </p>
-                @endif
+                    </a>
+
+                </p>
+
+                <p class="evento-dato">
+                    <strong>👥 Cupos disponibles:</strong>
+                    {{ $evento->cupos }}
+                </p>
 
             </div>
 
@@ -72,11 +74,23 @@
 
             @if($evento->fecha >= date('Y-m-d'))
 
-                <a href="{{ $evento->google_sheet_url }}"
-   target="_blank"
-   class="event-button">
-    ¡Me interesa!
-</a>
+                @if($evento->cupos > 0)
+
+                    <a href="{{ $evento->google_sheet_url }}"
+                       target="_blank"
+                       class="event-button">
+
+                        ¡Me interesa!
+
+                    </a>
+
+                @else
+
+                    <p class="evento-sin-cupos">
+                        🚫 Sin cupos disponibles
+                    </p>
+
+                @endif
 
             @else
 

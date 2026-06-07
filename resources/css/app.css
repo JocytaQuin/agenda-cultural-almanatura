@@ -537,6 +537,16 @@ body {
     font-size: 20px;
     font-weight: bold;
 }
+.evento-sin-cupos {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 14px 28px;
+    background-color: #808080;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 999px;
+}
 
 /* TABLET */
 
