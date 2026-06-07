@@ -73,10 +73,10 @@
             @if($evento->fecha >= date('Y-m-d'))
 
                 <a href="{{ $evento->google_sheet_url }}"
-                   target="_blank"
-                   class="event-button">
-                    ¡Me interesa!
-                </a>
+   target="_blank"
+   class="event-button">
+    ¡Me interesa!
+</a>
 
             @else
 

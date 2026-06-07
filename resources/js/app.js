@@ -83,3 +83,29 @@ if (slides.length > 0 && prevSlide && nextSlide) {
         showSlide(slideIndex);
     }, 5000);
 }
+/* BUSCADOR DE EVENTOS */
+
+const searchEvent = document.getElementById('searchEvent');
+const eventCards = document.querySelectorAll('.event-card');
+
+if (searchEvent && eventCards.length > 0) {
+
+    searchEvent.addEventListener('input', function () {
+
+        const searchText = this.value.toLowerCase().trim();
+
+        eventCards.forEach(card => {
+
+            const eventName = card.dataset.nombre;
+
+            if (eventName.includes(searchText)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+
+        });
+
+    });
+
+}

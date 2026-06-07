@@ -33,7 +33,7 @@
 
     <section class="search-section">
         <div class="search-box">
-            <input type="text" placeholder="Buscar por nombre del evento">
+            <input type="text" id="searchEvent" placeholder="Buscar por nombre del evento">
             <span class="search-icon">⌕</span>
         </div>
     </section>
@@ -43,7 +43,7 @@
 
         <div class="events-grid">
             @forelse ($eventosActivos as $evento)
-                <article class="event-card">
+                <article class="event-card" data-nombre="{{ strtolower($evento->nombre) }}">
 
     <img src="{{ asset('img/eventos-proximos/' . $evento->imagen) }}"
          class="event-card-img"
