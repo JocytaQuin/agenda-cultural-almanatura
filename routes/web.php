@@ -12,3 +12,6 @@ Route::get('/evento/{id}', [EventoController::class, 'show'])->name('evento.show
 Route::get('/evento/{id}/inscripcion', [EventoController::class, 'inscripcion'])->name('evento.inscripcion');
 
 Route::post('/evento/{id}/inscripcion', [EventoController::class, 'guardarInscripcion'])->name('evento.guardarInscripcion');
+
+Route::get('/evento/{id}/sincronizar', [EventoController::class, 'sincronizarInscripciones'])
+    ->name('evento.sincronizar');
