@@ -14,13 +14,13 @@
     <section class="past-events">
         <div class="past-slider">
 
-            <button class="slider-arrow slider-arrow-left" type="button" id="prevSlide">‹</button>
+            <button class="slider-arrow slider-arrow-left" type="button" id="prevSlide"><</button>
 
             <img src="{{ asset('img/eventos/evento1.jpg') }}" class="past-slide active" alt="Evento pasado 1">
             <img src="{{ asset('img/eventos/evento2.jpg') }}" class="past-slide" alt="Evento pasado 2">
             <img src="{{ asset('img/eventos/evento3.jpg') }}" class="past-slide" alt="Evento pasado 3">
 
-            <button class="slider-arrow slider-arrow-right" type="button" id="nextSlide">›</button>
+            <button class="slider-arrow slider-arrow-right" type="button" id="nextSlide">></button>
 
             <div class="slider-indicators">
                 <button class="indicator active" type="button" data-slide="0"></button>

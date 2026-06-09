@@ -9,8 +9,8 @@
     <section class="evento-detalle">
 
         <img src="{{ asset('img/eventos-proximos/' . $evento->imagen) }}"
-             class="event-detail-img"
-             alt="{{ $evento->nombre }}">
+                    class="event-detail-img"
+                    alt="{{ $evento->nombre }}">
 
         <div class="evento-info">
 

@@ -29,6 +29,12 @@ class EventoController extends Controller
     {
         $evento = Evento::findOrFail($id);
 
+        // Sincroniza automáticamente al abrir el detalle del evento
+        if ($evento->google_sheet_csv_url) {
+            $this->sincronizarEvento($evento);
+            $evento->refresh();
+        }
+
         return view('evento', compact('evento'));
     }
 
@@ -49,77 +55,89 @@ class EventoController extends Controller
             'telefono' => 'required|string|max:20',
         ]);
 
-        Participante::create([
-            'evento_id' => $evento->id,
-            'nombre' => $request->nombre,
-            'apellido' => $request->apellido,
-            'telefono' => $request->telefono,
-            'fecha_inscripcion' => Carbon::now(),
-        ]);
-
-        return view('confirmacion', compact('evento'));
-    }
-
-    public function sincronizarInscripciones($id)
-{
-    $evento = Evento::findOrFail($id);
-
-    if (!$evento->google_sheet_csv_url) {
-        dd('El evento no tiene URL CSV configurada');
-    }
-
-    $response = Http::get($evento->google_sheet_csv_url);
-
-    if (!$response->successful()) {
-        dd('No se pudo leer el CSV');
-    }
-
-    $lineas = array_map('str_getcsv', explode("\n", $response->body()));
-
-    // Quita la primera fila, que son los nombres de las columnas
-    array_shift($lineas);
-
-    $nuevos = 0;
-
-    foreach ($lineas as $fila) {
-        if (count($fila) < 5) {
-            continue;
-        }
-
-        $nombre = trim($fila[1] ?? '');
-        $apellidoPaterno = trim($fila[2] ?? '');
-        $apellidoMaterno = trim($fila[3] ?? '');
-        $telefono = trim($fila[4] ?? '');
-
-        $apellido = trim($apellidoPaterno . ' ' . $apellidoMaterno);
-
-        if (!$nombre || !$telefono) {
-            continue;
-        }
-
         $participante = Participante::firstOrCreate(
             [
                 'evento_id' => $evento->id,
-                'telefono' => $telefono,
+                'telefono' => $request->telefono,
             ],
             [
-                'nombre' => $nombre,
-                'apellido' => $apellido,
+                'nombre' => $request->nombre,
+                'apellido' => $request->apellido,
                 'fecha_inscripcion' => Carbon::now(),
             ]
         );
 
-        if ($participante->wasRecentlyCreated) {
-            $nuevos++;
+        if ($participante->wasRecentlyCreated && $evento->cupos > 0) {
+            $evento->cupos--;
+            $evento->save();
+        }
 
-            if ($evento->cupos > 0) {
-                $evento->cupos = $evento->cupos - 1;
+        return view('confirmacion', compact('evento'));
+    }
+
+    private function sincronizarEvento($evento)
+    {
+        $response = Http::get($evento->google_sheet_csv_url);
+
+        if (!$response->successful()) {
+            return;
+        }
+
+        $lineas = array_map('str_getcsv', explode("\n", $response->body()));
+
+        foreach ($lineas as $fila) {
+
+            if (count($fila) < 5) {
+                continue;
+            }
+
+            // Solo procesa filas que comienzan con fecha, por ejemplo: 8/6/2026
+            if (!isset($fila[0]) || !preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}/', trim($fila[0]))) {
+                continue;
+            }
+
+            $nombre = trim($fila[1] ?? '');
+            $apellidoPaterno = trim($fila[2] ?? '');
+            $apellidoMaterno = trim($fila[3] ?? '');
+            $telefono = trim($fila[4] ?? '');
+
+            $apellido = trim($apellidoPaterno . ' ' . $apellidoMaterno);
+
+            if (empty($nombre) || empty($telefono)) {
+                continue;
+            }
+
+            $participante = Participante::firstOrCreate(
+                [
+                    'evento_id' => $evento->id,
+                    'telefono' => $telefono,
+                ],
+                [
+                    'nombre' => $nombre,
+                    'apellido' => $apellido,
+                    'fecha_inscripcion' => Carbon::now(),
+                ]
+            );
+
+            if ($participante->wasRecentlyCreated && $evento->cupos > 0) {
+                $evento->cupos--;
                 $evento->save();
             }
         }
     }
 
-    return redirect()->route('evento.show', $evento->id)
-        ->with('success', 'Sincronización completa. Nuevos inscritos: ' . $nuevos);
-}
+    public function sincronizarInscripciones($id)
+    {
+        $evento = Evento::findOrFail($id);
+
+        if (!$evento->google_sheet_csv_url) {
+            dd('El evento no tiene URL CSV configurada');
+        }
+
+        $this->sincronizarEvento($evento);
+
+        return redirect()
+            ->route('evento.show', $evento->id)
+            ->with('success', 'Sincronización completada.');
     }
+}

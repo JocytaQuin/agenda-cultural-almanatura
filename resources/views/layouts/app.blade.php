@@ -25,8 +25,7 @@
         <a href="{{ route('agenda.index') }}" class="active">Agenda</a>
     </nav>
 
-<button class="menu-mobile" id="menuToggle" type="button">☰</button>
-
+    <button class="menu-mobile" id="menuToggle" type="button">☰</button>
 </header>
 
 <div class="header-line"></div>
