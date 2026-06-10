@@ -28,15 +28,18 @@ class AdminEventoController extends Controller
     }
 
     public function index()
-    {
-        if (!session('admin_logueado')) {
-            return redirect()->route('admin.login');
-        }
-
-        $eventos = Evento::orderBy('fecha', 'desc')->get();
-
-        return view('admin.eventos.index', compact('eventos'));
+{
+    if (!session('admin_logueado')) {
+        return redirect()->route('admin.login');
     }
+
+    $eventos = Evento::withCount('participantes')
+        ->orderBy('fecha', 'asc')
+        ->orderBy('hora', 'asc')
+        ->get();
+
+    return view('admin.eventos.index', compact('eventos'));
+}
 
     public function crear()
     {
@@ -131,7 +134,16 @@ class AdminEventoController extends Controller
             ->route('admin.eventos')
             ->with('success', 'Evento actualizado correctamente.');
     }
+            public function participantes($id)
+    {
+    if (!session('admin_logueado')) {
+        return redirect()->route('admin.login');
+    }
 
+    $evento = Evento::with('participantes')->findOrFail($id);
+
+    return view('admin.eventos.participantes', compact('evento'));
+}
     public function eliminar($id)
     {
         if (!session('admin_logueado')) {
