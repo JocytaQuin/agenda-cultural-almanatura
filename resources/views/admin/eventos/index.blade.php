@@ -109,6 +109,7 @@
             border-radius: 999px;
             font-weight: bold;
             font-size: 13px;
+            display: inline-block;
         }
 
         .badge-no {
@@ -118,12 +119,14 @@
             border-radius: 999px;
             font-weight: bold;
             font-size: 13px;
+            display: inline-block;
         }
 
         .actions {
             display: flex;
             gap: 8px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .btn-edit {
@@ -134,6 +137,27 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: bold;
+        }
+
+        .btn-participantes {
+            background-color: #2563eb;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .btn-sheet {
+            background-color: #15803d;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-block;
         }
 
         .btn-delete {
@@ -209,7 +233,9 @@
                     <th>Cupos</th>
                     <th>Inscritos</th>
                     <th>Disponibles</th>
-                    <th>Google Form</th>
+                    <th>Estado</th>
+                    <th>Vigencia</th>
+                    <th>Google Sheet</th>
                     <th>CSV</th>
                     <th>Acciones</th>
                 </tr>
@@ -217,25 +243,42 @@
 
             <tbody>
                 @foreach($eventos as $evento)
+                    @php
+                        $disponibles = $evento->cupos - $evento->participantes_count;
+                    @endphp
+
                     <tr>
                         <td>{{ $evento->id }}</td>
                         <td>{{ $evento->nombre }}</td>
                         <td>{{ $evento->fecha }}</td>
                         <td>{{ $evento->hora }}</td>
-
                         <td>{{ $evento->cupos }}</td>
+                        <td>{{ $evento->participantes_count }}</td>
+                        <td>{{ $disponibles }}</td>
 
-                        <td>
-                            {{ $evento->participantes_count }}
+                       <td>
+                            @if($disponibles > 0)
+                                <span class="badge-ok">Disponible</span>
+                        @else
+                                <span class="badge-no">Completo</span>
+                            @endif
                         </td>
 
                         <td>
-                            {{ $evento->cupos - $evento->participantes_count }}
+                            @if(\Carbon\Carbon::parse($evento->fecha)->lt(\Carbon\Carbon::today()))
+                                <span class="badge-no">Finalizado</span>
+                            @else
+                                <span class="badge-ok">Próximo</span>
+                            @endif
                         </td>
 
                         <td>
-                            @if($evento->google_sheet_url)
-                                <span class="badge-ok">Sí</span>
+                            @if($evento->google_sheet_excel_url)
+                                <a href="{{ $evento->google_sheet_excel_url }}"
+                            target="_blank"
+                            class="btn-sheet">
+                            Google Sheet
+                                </a>
                             @else
                                 <span class="badge-no">No</span>
                             @endif
@@ -252,6 +295,11 @@
                         <td>
                             <div class="actions">
 
+                                <a href="{{ route('admin.eventos.participantes', $evento->id) }}"
+                                   class="btn-participantes">
+                                    Participantes
+                                </a>
+
                                 <a href="{{ route('admin.eventos.editar', $evento->id) }}"
                                    class="btn-edit">
                                     Editar
@@ -259,7 +307,6 @@
 
                                 <form action="{{ route('admin.eventos.eliminar', $evento->id) }}"
                                       method="POST">
-
                                     @csrf
                                     @method('DELETE')
 
@@ -268,7 +315,6 @@
                                             onclick="return confirm('¿Seguro que deseas eliminar este evento?')">
                                         Eliminar
                                     </button>
-
                                 </form>
 
                             </div>

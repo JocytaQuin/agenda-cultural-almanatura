@@ -189,6 +189,11 @@
             </div>
 
             <div class="full">
+                <label>URL Google Sheet</label>
+                <input type="text" name="google_sheet_excel_url">
+            </div>
+
+            <div class="full">
                 <label>URL CSV Google Sheets</label>
                 <input type="text" name="google_sheet_csv_url">
             </div>

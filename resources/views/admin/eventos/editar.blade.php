@@ -108,6 +108,26 @@
             text-decoration: none;
             font-weight: bold;
         }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .logo {
+                width: 160px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -167,6 +187,11 @@
             <div class="full">
                 <label>URL Google Form</label>
                 <input type="text" name="google_sheet_url" value="{{ $evento->google_sheet_url }}">
+            </div>
+
+            <div class="full">
+                <label>URL Google Sheet</label>
+                <input type="text" name="google_sheet_excel_url" value="{{ $evento->google_sheet_excel_url }}">
             </div>
 
             <div class="full">

@@ -28,18 +28,18 @@ class AdminEventoController extends Controller
     }
 
     public function index()
-{
-    if (!session('admin_logueado')) {
-        return redirect()->route('admin.login');
+    {
+        if (!session('admin_logueado')) {
+            return redirect()->route('admin.login');
+        }
+
+        $eventos = Evento::withCount('participantes')
+            ->orderBy('fecha', 'asc')
+            ->orderBy('hora', 'asc')
+            ->get();
+
+        return view('admin.eventos.index', compact('eventos'));
     }
-
-    $eventos = Evento::withCount('participantes')
-        ->orderBy('fecha', 'asc')
-        ->orderBy('hora', 'asc')
-        ->get();
-
-    return view('admin.eventos.index', compact('eventos'));
-}
 
     public function crear()
     {
@@ -65,6 +65,7 @@ class AdminEventoController extends Controller
             'tipo_actividad' => 'required|string|max:100',
             'imagen' => 'required|string|max:255',
             'google_sheet_url' => 'nullable|string',
+            'google_sheet_excel_url' => 'nullable|string',
             'google_sheet_csv_url' => 'nullable|string',
         ]);
 
@@ -78,6 +79,7 @@ class AdminEventoController extends Controller
             'tipo_actividad' => $request->tipo_actividad,
             'imagen' => $request->imagen,
             'google_sheet_url' => $request->google_sheet_url,
+            'google_sheet_excel_url' => $request->google_sheet_excel_url,
             'google_sheet_csv_url' => $request->google_sheet_csv_url,
         ]);
 
@@ -114,6 +116,7 @@ class AdminEventoController extends Controller
             'tipo_actividad' => 'required|string|max:100',
             'imagen' => 'required|string|max:255',
             'google_sheet_url' => 'nullable|string',
+            'google_sheet_excel_url' => 'nullable|string',
             'google_sheet_csv_url' => 'nullable|string',
         ]);
 
@@ -127,6 +130,7 @@ class AdminEventoController extends Controller
             'tipo_actividad' => $request->tipo_actividad,
             'imagen' => $request->imagen,
             'google_sheet_url' => $request->google_sheet_url,
+            'google_sheet_excel_url' => $request->google_sheet_excel_url,
             'google_sheet_csv_url' => $request->google_sheet_csv_url,
         ]);
 
@@ -134,16 +138,18 @@ class AdminEventoController extends Controller
             ->route('admin.eventos')
             ->with('success', 'Evento actualizado correctamente.');
     }
-            public function participantes($id)
+
+    public function participantes($id)
     {
-    if (!session('admin_logueado')) {
-        return redirect()->route('admin.login');
+        if (!session('admin_logueado')) {
+            return redirect()->route('admin.login');
+        }
+
+        $evento = Evento::with('participantes')->findOrFail($id);
+
+        return view('admin.eventos.participantes', compact('evento'));
     }
 
-    $evento = Evento::with('participantes')->findOrFail($id);
-
-    return view('admin.eventos.participantes', compact('evento'));
-}
     public function eliminar($id)
     {
         if (!session('admin_logueado')) {

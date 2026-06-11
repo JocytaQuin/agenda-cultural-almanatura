@@ -16,6 +16,7 @@ class Evento extends Model
         'imagen',
         'tipo_actividad',
         'google_sheet_url',
+        'google_sheet_excel_url',
         'google_sheet_csv_url',
     ];
 

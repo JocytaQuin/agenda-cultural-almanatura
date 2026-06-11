@@ -33,4 +33,23 @@
 @yield('content')
 
 </body>
+
+<footer class="footer">
+
+    <div class="footer-left">
+        <img src="{{ asset('img/logos/logo3.png') }}" alt="AlmaNatura">
+    </div>
+
+    <div class="footer-right">
+
+        <div class="footer-cert">
+            <img src="{{ asset('img/logos/bcorp.png') }}"
+                 alt="Empresa B Certificada">
+        </div>
+
+        <p>info@almanatura.com</p>
+
+    </div>
+
+</footer>
 </html>
