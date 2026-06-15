@@ -1,59 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Agenda Cultural AlmaNatura
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descripción del Proyecto
 
-## About Laravel
+Agenda Cultural AlmaNatura es una plataforma web desarrollada como proyecto de título con el objetivo de mejorar la difusión, organización y gestión de eventos culturales en zonas rurales. La solución fue diseñada considerando las necesidades planteadas por Fundación AlmaNatura, buscando facilitar el acceso a la información cultural, mejorar la participación de la comunidad y optimizar la administración de actividades culturales.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+La plataforma permite centralizar la información de los eventos, visualizar actividades disponibles, gestionar participantes, consultar eventos anteriores y mantener un mejor control sobre los cupos asociados a cada actividad.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Funcionalidades Implementadas
 
-## Learning Laravel
+### Agenda Cultural
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* Visualización de eventos culturales disponibles.
+* Consulta de información detallada de cada actividad.
+* Visualización de cupos disponibles.
+* Acceso a formularios de inscripción.
+* Navegación simple e intuitiva para distintos tipos de usuarios.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Gestión de Participantes
 
-## Laravel Sponsors
+* Registro de participantes mediante formularios asociados a cada evento.
+* Actualización de cupos disponibles según las inscripciones realizadas.
+* Consulta de participantes asociados a cada actividad.
+* Seguimiento de registros vinculados a los eventos.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Panel Administrador
 
-### Premium Partners
+* Inicio de sesión para administradores.
+* Creación de eventos culturales.
+* Edición de eventos existentes.
+* Eliminación de eventos.
+* Visualización de participantes inscritos.
+* Gestión y seguimiento de eventos registrados.
+* Consulta del historial de eventos almacenados en la plataforma.
+* Publicación automática de eventos en la Agenda Cultural.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Integraciones
 
-## Contributing
+* Integración con Google Forms para la gestión de inscripciones.
+* Integración con Google Sheets para el almacenamiento y seguimiento de participantes.
+* Gestión de enlaces asociados a cada evento desde el panel administrador.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Tecnologías Utilizadas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Desarrollo Web
 
-## Security Vulnerabilities
+* Laravel
+* PHP
+* HTML5
+* CSS3
+* JavaScript
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Base de Datos
 
-## License
+* MySQL
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Herramientas de Desarrollo
+
+* Visual Studio Code
+* XAMPP
+
+### Control de Versiones
+
+* GitHub
+
+### Diseño y Prototipado
+
+* Canva
+* Figma
+
+### Servicios Externos
+
+* Google Forms
+* Google Sheets
+
+---
+
+## Características de Diseño
+
+Durante el desarrollo de la plataforma se consideraron principios de experiencia de usuario (UX) e interfaz de usuario (UI), priorizando:
+
+* Navegación simple e intuitiva.
+* Consistencia visual.
+* Jerarquía de la información.
+* Diseño responsive.
+* Accesibilidad para usuarios con distintos niveles de alfabetización digital.
+* Uso de colores alineados con la identidad visual de Fundación AlmaNatura.
+
+---
+
+## Equipo de Desarrollo
+
+Proyecto desarrollado para Fundación AlmaNatura como parte del proceso de titulación.
+
+* Anna Fischer Wolff – Arquitectura del Sistema.
+* Daniela Salas Ponce – Base de Datos.
+* Jennifer Carrasco Quintul – Experiencia de Usuario (UX).
+* Jocelyn Quinteros León – Interfaz de Usuario (UI).
+
+### Trabajo Colaborativo
+
+El proyecto fue desarrollado de manera colaborativa, participando en actividades de análisis, diseño, implementación, integración, pruebas, documentación y presentación de la solución propuesta.
+
+---
+
+## Objetivo del Proyecto
+
+Desarrollar una Agenda Cultural web que permita centralizar la difusión y gestión de actividades culturales rurales, facilitando la visualización de eventos, el control de cupos, el registro de participantes y la organización de la información mediante una plataforma accesible, intuitiva y fácil de utilizar.
+
